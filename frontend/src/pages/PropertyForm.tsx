@@ -29,15 +29,6 @@ const PropertyForm: React.FC = () => {
   const [error, setError] = useState('');
   const [generatingDesc, setGeneratingDesc] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-    if (isEdit && id) {
-      fetchProperty();
-    }
-  }, [id, isEdit, user, navigate]);
-
   const fetchProperty = async () => {
     try {
       const response = await propertyAPI.getById(id!);
@@ -60,6 +51,16 @@ const PropertyForm: React.FC = () => {
       setError('Failed to load property');
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+    if (isEdit && id) {
+      fetchProperty();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isEdit, user, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({

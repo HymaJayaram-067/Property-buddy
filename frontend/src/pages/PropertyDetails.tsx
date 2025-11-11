@@ -14,13 +14,6 @@ const PropertyDetails: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (id) {
-      fetchProperty();
-      fetchRecommendations();
-    }
-  }, [id]);
-
   const fetchProperty = async () => {
     try {
       setLoading(true);
@@ -41,6 +34,14 @@ const PropertyDetails: React.FC = () => {
       console.error('Failed to load recommendations');
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      fetchProperty();
+      fetchRecommendations();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this property?')) {
