@@ -32,7 +32,7 @@ Property Pulse is a complete, production-ready AI-powered real estate platform b
    - Property status management (available, pending, sold)
 
 5. **AI-Powered Features**
-   - **Natural Language Search**: Converts text queries like "3 bedroom house in Seattle under 500k" into structured database queries using OpenAI
+   - **Natural Language Search**: Converts text queries like "3 bedroom house in Seattle under 500k" into structured database queries using Google Gemini
    - **AI-Generated Descriptions**: Automatically creates compelling property descriptions based on property details
    - **Smart Recommendations**: Suggests similar properties based on type, size, and price
 
@@ -125,7 +125,7 @@ Property-buddy/
 - **Runtime**: Node.js
 - **Framework**: Express.js
 - **Database**: MongoDB with Mongoose ODM
-- **AI**: OpenAI API (GPT-3.5-turbo)
+- **AI**: Google Gemini API (gemini-pro)
 - **Authentication**: JWT + bcryptjs
 - **Security**: express-rate-limit, express-validator, express-mongo-sanitize
 - **CORS**: Cross-origin support
@@ -199,7 +199,7 @@ Property-buddy/
 ### Prerequisites
 - Node.js v14+
 - MongoDB (local or Atlas)
-- OpenAI API key
+- Google Gemini API key (free)
 
 ### Backend Setup
 ```bash
@@ -227,7 +227,7 @@ NODE_ENV=development
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/property-pulse
 JWT_SECRET=your_jwt_secret_key
-OPENAI_API_KEY=your_openai_api_key
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
 ### Frontend (.env)

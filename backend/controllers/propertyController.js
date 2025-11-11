@@ -1,9 +1,9 @@
 const Property = require('../models/Property');
-const OpenAI = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize Google Gemini AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
 // @desc    Get all properties
 // @route   GET /api/properties
@@ -128,15 +128,13 @@ const generateDescription = async (req, res) => {
   try {
     const { propertyType, bedrooms, bathrooms, squareFeet, location, amenities } = req.body;
 
-    const prompt = `Generate a compelling property listing description for a ${propertyType} with ${bedrooms} bedrooms, ${bathrooms} bathrooms, ${squareFeet} square feet, located in ${location.city}, ${location.state}. Amenities include: ${amenities.join(', ')}. Make it professional and engaging.`;
+    const prompt = `Generate a compelling property listing description for a ${propertyType} with ${bedrooms} bedrooms, ${bathrooms} bathrooms, ${squareFeet} square feet, located in ${location.city}, ${location.state}. Amenities include: ${amenities.join(', ')}. Make it professional and engaging. Keep it under 300 words.`;
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 300,
-    });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const description = response.text();
 
-    res.json({ description: completion.choices[0].message.content });
+    res.json({ description });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -149,20 +147,24 @@ const aiSearch = async (req, res) => {
   try {
     const { query } = req.body;
 
-    // Use OpenAI to parse natural language query
+    // Use Google Gemini to parse natural language query
     const prompt = `Convert this natural language property search query into structured search parameters: "${query}". 
     Extract: propertyType (house/apartment/condo/townhouse/land), minPrice, maxPrice, bedrooms, bathrooms, city, state.
-    Respond in JSON format only with extracted parameters. If a parameter is not mentioned, omit it.`;
+    Respond in JSON format only with extracted parameters. If a parameter is not mentioned, omit it. Return only valid JSON, no additional text.`;
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 200,
-    });
-
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    
     let searchParams = {};
     try {
-      searchParams = JSON.parse(completion.choices[0].message.content);
+      // Extract JSON from response (in case Gemini adds extra text)
+      const jsonMatch = text.match(/\{[^}]+\}/);
+      if (jsonMatch) {
+        searchParams = JSON.parse(jsonMatch[0]);
+      } else {
+        searchParams = JSON.parse(text);
+      }
     } catch (e) {
       return res.status(400).json({ message: 'Could not parse search query' });
     }

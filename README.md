@@ -1,6 +1,6 @@
 # Property Pulse – AI-Powered Real Estate Platform
 
-Property Pulse is a full-stack web application that enables users to discover, evaluate, and interact with property listings using intelligent automation powered by OpenAI.
+Property Pulse is a full-stack web application that enables users to discover, evaluate, and interact with property listings using intelligent automation powered by Google Gemini AI.
 
 ## Features
 
@@ -19,7 +19,7 @@ Property Pulse is a full-stack web application that enables users to discover, e
 ### Backend
 - Node.js & Express
 - MongoDB with Mongoose
-- OpenAI API Integration
+- Google Gemini API Integration
 - JWT Authentication
 - bcryptjs for password hashing
 
@@ -34,7 +34,7 @@ Property Pulse is a full-stack web application that enables users to discover, e
 
 - Node.js (v14 or higher)
 - MongoDB (local or Atlas)
-- OpenAI API Key
+- Google Gemini API Key (free from Google AI Studio)
 
 ## Installation
 
@@ -61,8 +61,10 @@ NODE_ENV=development
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/property-pulse
 JWT_SECRET=your_jwt_secret_key_here
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
+
+**Note**: Get your free Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey). No credit card required!
 
 5. Start the backend server:
 ```bash
@@ -186,6 +188,20 @@ Property-buddy/
 │   └── package.json
 └── README.md
 ```
+
+## Getting a Free Google Gemini API Key
+
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy your API key
+5. Add it to your `.env` file as `GEMINI_API_KEY`
+
+**Benefits of Google Gemini:**
+- ✅ Free tier available (no credit card required)
+- ✅ Generous rate limits
+- ✅ Fast response times
+- ✅ Supports JSON output for structured data
 
 ## Contributing
 
