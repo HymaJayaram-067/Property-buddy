@@ -1,0 +1,126 @@
+.property-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.property-details {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.property-details h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.property-price {
+  color: #27ae60;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.property-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #ecf0f1;
+  border-radius: 4px;
+}
+
+.info-item {
+  font-size: 0.95rem;
+}
+
+.info-item strong {
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.property-location,
+.property-description,
+.property-amenities {
+  margin-bottom: 1.5rem;
+}
+
+.property-location h3,
+.property-description h3,
+.property-amenities h3 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+}
+
+.property-amenities ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.property-amenities li {
+  padding: 0.5rem;
+  background: #ecf0f1;
+  border-radius: 4px;
+}
+
+.property-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.recommendations-section {
+  margin-top: 3rem;
+}
+
+.recommendations-section h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.recommendation-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-4px);
+}
+
+.recommendation-card h4 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.recommendation-card p {
+  color: #7f8c8d;
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .property-info {
+    grid-template-columns: 1fr;
+  }
+
+  .property-actions {
+    flex-direction: column;
+  }
+}
