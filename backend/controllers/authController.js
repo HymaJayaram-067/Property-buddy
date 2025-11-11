@@ -14,6 +14,8 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Input is validated and sanitized by express-validator middleware
+    // Mongoose and express-mongo-sanitize provide additional NoSQL injection protection
     const userExists = await User.findOne({ email });
 
     if (userExists) {
@@ -49,6 +51,8 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Input is validated and sanitized by express-validator middleware
+    // Mongoose and express-mongo-sanitize provide additional NoSQL injection protection
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {

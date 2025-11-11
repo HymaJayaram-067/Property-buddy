@@ -11,11 +11,18 @@ const {
   getRecommendations,
 } = require('../controllers/propertyController');
 const { protect } = require('../middleware/auth');
+const { apiLimiter, aiLimiter } = require('../middleware/rateLimiter');
+const {
+  createPropertyValidation,
+  updatePropertyValidation,
+  idValidation,
+  searchValidation,
+} = require('../middleware/validation');
 
-router.route('/').get(getProperties).post(protect, createProperty);
-router.post('/ai/generate-description', protect, generateDescription);
-router.post('/ai/search', aiSearch);
-router.post('/ai/recommendations', getRecommendations);
-router.route('/:id').get(getPropertyById).put(protect, updateProperty).delete(protect, deleteProperty);
+router.route('/').get(apiLimiter, searchValidation, getProperties).post(protect, apiLimiter, createPropertyValidation, createProperty);
+router.post('/ai/generate-description', protect, aiLimiter, generateDescription);
+router.post('/ai/search', apiLimiter, aiSearch);
+router.post('/ai/recommendations', apiLimiter, getRecommendations);
+router.route('/:id').get(apiLimiter, idValidation, getPropertyById).put(protect, apiLimiter, updatePropertyValidation, updateProperty).delete(protect, apiLimiter, idValidation, deleteProperty);
 
 module.exports = router;

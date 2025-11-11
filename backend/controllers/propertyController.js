@@ -10,6 +10,8 @@ const openai = new OpenAI({
 // @access  Public
 const getProperties = async (req, res) => {
   try {
+    // Query parameters are validated by express-validator middleware
+    // express-mongo-sanitize prevents NoSQL injection attacks
     const { search, propertyType, minPrice, maxPrice, bedrooms } = req.query;
     let query = {};
 
@@ -208,6 +210,8 @@ const getRecommendations = async (req, res) => {
   try {
     const { propertyId } = req.body;
     
+    // propertyId is validated as MongoDB ObjectId by Mongoose
+    // express-mongo-sanitize prevents NoSQL injection attacks
     const property = await Property.findById(propertyId);
     
     if (!property) {
